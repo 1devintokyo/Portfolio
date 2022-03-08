@@ -1,0 +1,41 @@
+options:
+    Prefix: &e&lREACTION |
+
+every 60 seconds:
+    set {reactionmessage} to random integer between 0 and 5 
+    if {reactionmessage} is equal to 0:
+        set {reactionword} to "Word0"
+    if {reactionmessage} is equal to 1:
+        set {reactionword} to "Word1"
+    if {reactionmessage} is equal to 2:
+        set {reactionword} to "Word2"
+    if {reactionmessage} is equal to 3:
+        set {reactionword} to "Word3"
+    if {reactionmessage} is equal to 4:
+        set {reactionword} to "Word4"
+    if {reactionmessage} is equal to 5:
+        set {reactionword} to "Word5"
+
+    set {reactionenabled} to true
+    broadcast ""
+    send formatted "{@Prefix} <tooltip:&e&l%{reactionword}%>&bHover over this for the word to type<tooltip>" to all players
+    broadcast ""
+    loop 20 times:
+        wait 1 second
+        add 1 to {reactiontimer}
+
+    set {reactiontimer} to 0
+    set {reactionenabled} to false
+    if {reactionanswered} is true:
+        set {reactionanswered} to false
+    else:
+        broadcast "{@Prefix} &bNobody typed the word in time"
+
+on chat:
+    if message contains "%{reactionword}%":
+        if {reactionenabled} is true:
+            broadcast "{@Prefix} &b %player% won in &e&l%{reactiontimer}% &bSeconds and got rewards"
+            set {reactionanswered} to true
+            set {reactionenabled} to false
+            set {reactiontimer} to 0
+            add 100 to player's balance
