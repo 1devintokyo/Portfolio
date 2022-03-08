@@ -1,0 +1,176 @@
+options:
+    prefix: &c&lPrefix | &r
+
+
+on death:
+    if display name of victim is "&7&lOsseous":
+        if attacker is a player:
+            cancel drops
+            play sound "minecraft:entity.lightning_bolt.thunder" with volume 10 to all players
+            set {_top::*} to sorted {currentbossdamage::*} from highest to lowest with format "@index @value"
+            delete {currentboss}
+            loop all players:
+                if loop-player is attacker:
+                    set {_v} to (a random integer between 1 and 3)
+                    send "{@prefix} You won %{_v}% Coins from the boss dying!" to loop-player
+            loop {_top::*}:
+                set {_x} to "%first element out of {_top::*}%"
+                replace "1" and "2" and "3" and "4" and "5" and "6" and "7" and "8" and "9" and "0" and "-" and " " in {_x} with ""
+                play sound "entity.ender_dragon_death" to all players
+                give ("%{_x}%" parsed as player) 2 sunflower named "&6&lBoss Coin"
+                clear {currentbossdamage::*}
+                            
+on death:
+    if display name of victim is "&8&lAraneae":
+        if attacker is a player:
+            cancel drops
+            play sound "minecraft:entity.lightning_bolt.thunder" with volume 10 to all players
+            set {_top::*} to sorted {currentbossdamage::*} from highest to lowest with format "@index @value"
+            delete {currentboss}
+            loop all players:
+                if loop-player is attacker:
+                    set {_v} to (a random integer between 1 and 4)
+                    send "{@prefix} You won %{_v}% Coins from the boss dying!" to loop-player
+            loop {_top::*}:
+                set {_x} to "%first element out of {_top::*}%"
+                replace "1" and "2" and "3" and "4" and "5" and "6" and "7" and "8" and "9" and "0" and "-" and " " in {_x} with ""
+                play sound "entity.ender_dragon_death" to all players
+                give ("%{_x}%" parsed as player) 1 sunflower named "&6&lBoss Coin"
+                clear {currentbossdamage::*}
+							
+
+on death:
+    if display name of victim is "&a&lUndead King":
+        if attacker is a player:
+            cancel drops
+            play sound "minecraft:entity.lightning_bolt.thunder" with volume 10 to all players
+            set {_top::*} to sorted {currentbossdamage::*} from highest to lowest with format "@index @value"
+            delete {currentboss}
+            loop all players:
+                if loop-player is attacker:
+                    set {_v} to (a random integer between 1 and 4)
+                    send "{@prefix} You won %{_v}% Coins from the boss dying!" to loop-player
+            loop {_top::*}:
+                set {_x} to "%first element out of {_top::*}%"
+                replace "1" and "2" and "3" and "4" and "5" and "6" and "7" and "8" and "9" and "0" and "-" and " " in {_x} with ""
+                play sound "entity.ender_dragon_death" to all players
+                give ("%{_x}%" parsed as player) 3 sunflower named "&6&lBoss Coin"
+                clear {currentbossdamage::*}
+                
+							
+on death:
+    if display name of victim is "&4&lInfernal":
+        if attacker is a player:
+            cancel drops
+            play sound "minecraft:entity.lightning_bolt.thunder" with volume 10 to all players
+            set {_top::*} to sorted {currentbossdamage::*} from highest to lowest with format "@index @value"
+            delete {currentboss}
+            loop all players:
+                if loop-player is attacker:
+                    set {_v} to (a random integer between 1 and 4)
+                    send "{@prefix} You won %{_v}% Coins from the boss dying!" to loop-player
+            loop {_top::*}:
+                set {_x} to "%first element out of {_top::*}%"
+                replace "1" and "2" and "3" and "4" and "5" and "6" and "7" and "8" and "9" and "0" and "-" and " " in {_x} with ""
+                play sound "entity.ender_dragon_death" to all players
+                give ("%{_x}%" parsed as player) 4 sunflower named "&6&lBoss Coin"
+                clear {currentbossdamage::*}
+
+
+on damage:
+    if display name of victim is "&7&lOsseous":
+        if attacker is a player:
+            set {_x} to damage
+            set {_x} to round {_x}
+            add {_x} to {currentbossdamage::%attacker%}
+
+on damage:
+    if display name of victim is "&8&lAraneae":
+        if attacker is a player:
+            set {_x} to damage
+            set {_x} to round {_x}
+            add {_x} to {currentbossdamage::%attacker%}
+
+on damage:
+    if display name of victim is "&a&lUndead King":
+        if attacker is a player:
+            set {_x} to damage
+            set {_x} to round {_x}
+            add {_x} to {currentbossdamage::%attacker%}
+
+				
+on damage:
+    if display name of victim is "&4&lInfernal":
+        if attacker is a player:
+            set {_x} to damage
+            set {_x} to round {_x}
+            add {_x} to {currentbossdamage::%attacker%}
+
+        
+every 1 minutes:
+    if {currentboss} is not set:
+        chance of 25%:
+            spawn 1 Skeleton at {BossLocation-Osseous}
+            set {_Osseous} to "&7&lOsseous"
+            set display name of last spawned Skeleton to "&7&lOsseous"
+            set max health of last spawned Skeleton to 100
+            set health of last spawned Skeleton to 100
+            set {currentboss} to {_Osseous}
+            broadcast "{@prefix} A boss has spawned"
+        chance of 25%:
+            set {_Araneae} to "&8&lAraneae"
+            spawn 1 spider at {BossLocation-Araneae}
+            set display name of last spawned Spider to "&8&lAraneae"
+            set max health of last spawned spider to 50
+            set health of last spawned spider to 50
+            set {currentboss} to {_Araneae}
+            broadcast "{@prefix} A boss has spawned"
+        chance of 25%:
+            set {_Giant} to "&a&lUndead King"
+            spawn 1 giant at {BossLocation-UndeadKing}
+            set display name of last spawned giant to "&a&lUndead King"
+            set last spawned giant's max health to 150
+            set last spawned giant's health to 150
+            set {currentboss} to {_Giant}
+            broadcast "{@prefix} A boss has spawned"
+        chance of 25%:
+            set {_Infernal} to "&4&lInfernal"
+            spawn 1 wither skeleton at {BossLocation-Infernal}
+            set display name of last spawned wither skeleton to "&4&lInfernal"
+            set last spawned wither skeleton's max health to 200
+            set last spawned wither skeleton's health to 200
+            set {currentboss} to {_Infernal}
+            broadcast "{@prefix} A boss has spawned"
+    else if {currentboss} is set:
+        broadcast " "
+
+
+command /boss [<text>] [<text>]:
+  permission: op
+  trigger:
+    if arg-1 is not set:
+      send "To set boss spawn do ./boss setspawn (name)" to player
+      send "The avaliable bosses to setspawn is" to player
+    if arg-1 is "setspawn":
+      if arg-2 is "Osseous":
+        clear {BossLocation-Osseous}
+        set {BossLocation-Osseous} to player's location
+        send "Set the location of %arg-2% to your location"
+      else if arg-2 is "Araneae":
+        clear {BossLocation-Araneae}
+        set {BossLocation-Araneae} to player's location
+        send "Set the location of %arg-2% to your location"
+      else if arg-2 is "Undead King":
+        clear {BossLocation-UndeadKing}
+        set {BossLocation-Undead} to player's location
+        send "Set the location of %arg-2% to your location"
+      else if arg-2 is "Infernus":
+        clear {BossLocation-Infernal}
+        set {BossLocation-Infernal} to player's location
+        send "Set the location of %arg-2% to your location"
+
+
+command /bossreset:
+ permission: op
+ trigger:
+  delete {currentboss}
