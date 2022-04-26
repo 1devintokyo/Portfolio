@@ -2,23 +2,6 @@
 on skript load:
     login to "token" with name "bot"
 
-discord command ^stats [<text>]:
-    trigger:
-        if arg-1 is not set:
-            create embed:
-                set the description of the embed to "Error please put a player name "
-                set the color of the embed to red
-            send the last created embed to event-channel with event-bot
-        else if arg-1 is set:
-            create embed:
-                set title of embed to "Showing stats for %arg-1%"
-                add field named "Information" with value "Username: %arg-1% %nl% Balance: %(arg-1 parsed as player)'s balance% %nl% Minecoins: %{minecoins.%(arg-1 parsed as offline player)'s uuid%} ? 0%❃ " to embed
-                add field named "Generator Stats" with value "Placed: %size of {gens::player::%(arg-1 parsed as offline player)'s uuid%::*} ? 0% %nl% Maximum: %{maxgens::%(arg-1 parsed as offline player)'s uuid%} ? 20%" to embed
-                add field named "Combat Stats" with value "Kills: %{killcounter.%(arg-1 parsed as offline player)'s uuid%.kills_total} ? 0% %nl% Deaths: %{deaths.%(arg-1 parsed as offline player)'s uuid%} ? 0%" to embed
-                set the color of the embed to green
-            send the last created embed to event-channel with event-bot
-
-
 discord command .ticket:
     trigger:
         add 1 to {ticketnumb::tickets}
